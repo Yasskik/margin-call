@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "bosses": [
+    {
+      "quarter": 1,
+      "id": "boss_retail_chop",
+      "name": "Retail Chop",
+      "description": "Bid-ask spreads doubled for the Boss session.",
+      "target_equity": 15000,
+      "burn_rate": 1500,
+      "modifiers": [
+        {
+          "key": "SPREAD_MULT",
+          "value": 2.0
+        }
+      ]
+    },
+    {
+      "quarter": 2,
+      "id": "boss_cpi_print",
+      "name": "CPI Print",
+      "description": "Guaranteed violent Jump Diffusion across the tape at t = 20 s.",
+      "target_equity": 28000,
+      "burn_rate": 2500,
+      "modifiers": [
+        {
+          "key": "FORCED_JUMP",
+          "tick": 200,
+          "ticker": "ALL",
+          "size_std": 0.1
+        }
+      ]
+    },
+    {
+      "quarter": 3,
+      "id": "boss_short_ban",
+      "name": "Short Sale Restriction",
+      "description": "Shorting disabled. Longs only.",
+      "target_equity": 55000,
+      "burn_rate": 4000,
+      "modifiers": [
+        {
+          "key": "DISABLE_SHORTS",
+          "value": true
+        }
+      ]
+    },
+    {
+      "quarter": 4,
+      "id": "boss_tax_harvest",
+      "name": "Year-End Tax Harvest",
+      "description": "Capital gains tax rate +10% this Quarter.",
+      "target_equity": 110000,
+      "burn_rate": 7500,
+      "modifiers": [
+        {
+          "key": "TAX_RATE_ADD",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "quarter": 5,
+      "id": "boss_fed_hike",
+      "name": "Emergency Fed Hike",
+      "description": "Drift shifts negative (-0.40); volatility spikes.",
+      "target_equity": 220000,
+      "burn_rate": 12000,
+      "modifiers": [
+        {
+          "key": "REGIME_DRIFT_ADD",
+          "value": -0.4
+        },
+        {
+          "key": "VOL_MULT",
+          "value": 1.3
+        }
+      ]
+    },
+    {
+      "quarter": 6,
+      "id": "boss_dark_pool_freeze",
+      "name": "Dark Pool Freeze",
+      "description": "Leftmost Contact Perk disabled during the Boss.",
+      "target_equity": 450000,
+      "burn_rate": 20000,
+      "modifiers": [
+        {
+          "key": "DISABLE_LEFTMOST_PERK",
+          "value": true
+        }
+      ]
+    },
+    {
+      "quarter": 7,
+      "id": "boss_circuit_breaker",
+      "name": "Circuit Breaker",
+      "description": "5 s market halt if price moves > 10%, resetting Momentum.",
+      "target_equity": 900000,
+      "burn_rate": 35000,
+      "modifiers": [
+        {
+          "key": "CIRCUIT_BREAKER",
+          "threshold": 0.1,
+          "halt_ticks": 50
+        }
+      ]
+    },
+    {
+      "quarter": 8,
+      "id": "boss_volmageddon",
+      "name": "Volmageddon",
+      "description": "Volatility x2.0; Liquidation threshold rises to 20%.",
+      "target_equity": 1800000,
+      "burn_rate": 60000,
+      "modifiers": [
+        {
+          "key": "VOL_MULT",
+          "value": 2.0
+        },
+        {
+          "key": "LIQUIDATION_THRESHOLD",
+          "value": 0.2
+        }
+      ]
+    },
+    {
+      "quarter": 9,
+      "id": "boss_prime_squeeze",
+      "name": "Prime Broker Squeeze",
+      "description": "Max leverage capped at 3x; Borrow fees tripled.",
+      "target_equity": 3800000,
+      "burn_rate": 100000,
+      "modifiers": [
+        {
+          "key": "MAX_LEVERAGE",
+          "value": 3
+        },
+        {
+          "key": "BORROW_MULT",
+          "value": 3.0
+        }
+      ]
+    },
+    {
+      "quarter": 10,
+      "id": "boss_flash_crash",
+      "name": "Flash Crash",
+      "description": "Sudden -22% liquidity vacuum at a random tick.",
+      "target_equity": 8000000,
+      "burn_rate": 160000,
+      "modifiers": [
+        {
+          "key": "FLASH_CRASH",
+          "value": -0.22
+        }
+      ]
+    },
+    {
+      "quarter": 11,
+      "id": "boss_congress",
+      "name": "Congressional Hearing",
+      "description": "+1.5 SEC Stars added automatically at Boss start.",
+      "target_equity": 18000000,
+      "burn_rate": 250000,
+      "modifiers": [
+        {
+          "key": "SEC_STARS_ADD",
+          "value": 1.5
+        }
+      ]
+    },
+    {
+      "quarter": 12,
+      "id": "boss_sovereign",
+      "name": "The Sovereign Reckoning",
+      "description": "Two random Boss Modifiers active simultaneously.",
+      "target_equity": 40000000,
+      "burn_rate": 400000,
+      "modifiers": [
+        {
+          "key": "RANDOM_BOSS_MODIFIERS",
+          "value": 2
+        }
+      ]
+    }
+  ]
+}

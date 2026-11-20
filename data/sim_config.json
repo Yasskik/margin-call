@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "ticks_per_second": 10,
+  "session_seconds": 45,
+  "session_sim_days": 21,
+  "trading_days_per_year": 252,
+  "drift_game_scale": 4.0,
+  "regime_check_interval_ticks": 50,
+  "regime_start_weights": {
+    "CALM": 0.6,
+    "BULL_MANIA": 0.2,
+    "VOLATILE": 0.15,
+    "CRASH": 0.05
+  },
+  "regimes": {
+    "CALM": {
+      "drift": 0.08,
+      "vol_mult": 1.0,
+      "jump_lambda": 0.02
+    },
+    "BULL_MANIA": {
+      "drift": 0.45,
+      "vol_mult": 1.39,
+      "jump_lambda": 0.08
+    },
+    "VOLATILE": {
+      "drift": 0.02,
+      "vol_mult": 1.9,
+      "jump_lambda": 0.15
+    },
+    "CRASH": {
+      "drift": -0.6,
+      "vol_mult": 2.17,
+      "jump_lambda": 0.2
+    }
+  },
+  "regime_transitions": {
+    "CALM": {
+      "CALM": 0.85,
+      "BULL_MANIA": 0.08,
+      "VOLATILE": 0.06,
+      "CRASH": 0.01
+    },
+    "BULL_MANIA": {
+      "CALM": 0.15,
+      "BULL_MANIA": 0.75,
+      "VOLATILE": 0.08,
+      "CRASH": 0.02
+    },
+    "VOLATILE": {
+      "CALM": 0.2,
+      "BULL_MANIA": 0.1,
+      "VOLATILE": 0.6,
+      "CRASH": 0.1
+    },
+    "CRASH": {
+      "CALM": 0.15,
+      "BULL_MANIA": 0.05,
+      "VOLATILE": 0.3,
+      "CRASH": 0.5
+    }
+  },
+  "jump_session_scale": 10,
+  "jump_warning_ticks": 15,
+  "jump_warning_ticks_fed_whisperer": 30,
+  "margin_safe": 0.25,
+  "margin_liquidation": 0.15,
+  "forced_liquidation_slippage": 0.02,
+  "enable_sleep_burnout": true,
+  "candle_ticks": 5,
+  "max_open_positions": 6,
+  "leverage_options": [
+    1,
+    2,
+    3,
+    5,
+    10
+  ],
+  "leverage_10x_min_prestige": 25,
+  "allocation_presets": [
+    0.1,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "momentum": {
+    "window_ticks": 10,
+    "full_scale_return": 0.02,
+    "smoothing": 0.25,
+    "wall_bonus_base": 0.05,
+    "wall_smash_min_leverage": 2
+  },
+  "base_mults": {
+    "momentum_add_mult_at_full": 0.5,
+    "wall_add_mult_per_smash": 0.25
+  },
+  "economy": {
+    "capital_gains_tax_rate": 0.15,
+    "prestige_per_quarter_cleared": 10,
+    "prestige_tiers": [
+      0,
+      25,
+      60
+    ],
+    "shop_offer_count": 4,
+    "reroll_base_cost": 400,
+    "reroll_step_cost": 300,
+    "reroll_quarter_scale": 0.5,
+    "sellback_ratio": 0.5,
+    "rarity_odds_by_tier": [
+      {
+        "COMMON": 0.62,
+        "UNCOMMON": 0.3,
+        "RARE": 0.08,
+        "LEGENDARY": 0.0
+      },
+      {
+        "COMMON": 0.4,
+        "UNCOMMON": 0.35,
+        "RARE": 0.2,
+        "LEGENDARY": 0.05
+      },
+      {
+        "COMMON": 0.25,
+        "UNCOMMON": 0.35,
+        "RARE": 0.25,
+        "LEGENDARY": 0.15
+      }
+    ],
+    "item_cost_quarter_scale": 0.12
+  },
+  "jump_headlines": {
+    "up": [
+      "{name} smashes earnings estimates",
+      "Activist fund takes 9% stake in {ticker}",
+      "{ticker} wins blockbuster contract",
+      "Short squeeze rips through {ticker}",
+      "Upgrade to STRONG BUY on {ticker}"
+    ],
+    "down": [
+      "{name} guidance slashed",
+      "SEC opens probe into {ticker} books",
+      "{ticker} CFO resigns abruptly",
+      "Recall hits {name}",
+      "Downgrade to SELL on {ticker}"
+    ]
+  },
+  "features": {
+    "life_sim": false,
+    "algos_live": false
+  }
+}

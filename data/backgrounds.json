@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "backgrounds": [
+    {
+      "id": "bg_junior_analyst",
+      "name": "Junior Analyst",
+      "starting_cash": 10000,
+      "algo_slots": 4,
+      "perk_slots": 5,
+      "starting_perks": [
+        "perk_bloomberg_trial"
+      ],
+      "starting_stress": 0,
+      "starting_sec_stars": 0.0,
+      "starting_prestige": 0,
+      "burn_rate_mult": 1.0,
+      "unlock_10x": false,
+      "unlocked_by_default": true,
+      "description": "Default. Starts with Bloomberg Trial (+15% Wall Smash bonus)."
+    },
+    {
+      "id": "bg_quant_intern",
+      "name": "Quant Intern",
+      "starting_cash": 8000,
+      "algo_slots": 6,
+      "perk_slots": 4,
+      "starting_perks": [],
+      "starting_stress": 20,
+      "starting_sec_stars": 0.0,
+      "starting_prestige": 0,
+      "burn_rate_mult": 1.0,
+      "unlock_10x": false,
+      "algo_speed_mult": 1.25,
+      "unlocked_by_default": false,
+      "description": "6 Algo / 4 Perk slots, Algo speed +25%, starts with 20 Stress."
+    },
+    {
+      "id": "bg_disgraced_broker",
+      "name": "Disgraced Broker",
+      "starting_cash": 15000,
+      "algo_slots": 4,
+      "perk_slots": 5,
+      "starting_perks": [],
+      "starting_stress": 0,
+      "starting_sec_stars": 1.5,
+      "starting_prestige": 0,
+      "burn_rate_mult": 1.0,
+      "unlock_10x": true,
+      "shady_profit_mult": 1.2,
+      "unlocked_by_default": false,
+      "description": "Starts with 1.5 SEC Stars, 10x leverage unlocked, +20% Shady Deal profit."
+    },
+    {
+      "id": "bg_trust_fund_heir",
+      "name": "Trust Fund Heir",
+      "starting_cash": 25000,
+      "algo_slots": 4,
+      "perk_slots": 5,
+      "starting_perks": [],
+      "starting_stress": 0,
+      "starting_sec_stars": 0.0,
+      "starting_prestige": 30,
+      "burn_rate_mult": 2.5,
+      "unlock_10x": false,
+      "unlocked_by_default": false,
+      "description": "Starts with 30 Prestige (Tier 2 shop) but Burn Rate is 2.5x higher."
+    }
+  ]
+}

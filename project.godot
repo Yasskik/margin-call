@@ -1,0 +1,39 @@
+; Engine configuration file.
+; MARGIN CALL — Godot 4.7.x (Standard GDScript). Code-first UI; see AGENTS.md.
+
+config_version=5
+
+[application]
+
+config/name="MARGIN CALL"
+config/description="2D Wall Street roguelite: leverage, resistance walls, Balatro-style combos."
+config/version="0.4.0"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://assets/icons/icon.svg"
+boot_splash/bg_color=Color(0.0392157, 0.0862745, 0.156863, 1)
+boot_splash/show_image=false
+
+[autoload]
+
+ThemeTokens="*res://src/autoload/theme_tokens.gd"
+EventBus="*res://src/autoload/event_bus.gd"
+DataRegistry="*res://src/autoload/data_registry.gd"
+AudioDirector="*res://src/autoload/audio_director.gd"
+SaveManager="*res://src/autoload/save_manager.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.0392157, 0.0862745, 0.156863, 1)
+anti_aliasing/quality/msaa_2d=1

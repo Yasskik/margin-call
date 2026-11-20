@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "deals": [
+    {
+      "id": "deal_front_run",
+      "name": "Front-Run Client Block",
+      "cost": 3000,
+      "sec_heat_delta": 1.0,
+      "stress_delta": 15.0,
+      "duration_sessions": 1,
+      "description": "Next session: every Long opens with a +3% head start.",
+      "modifier_key": "ENTRY_EDGE_PCT",
+      "modifier_value": 0.03
+    },
+    {
+      "id": "deal_leaked_fda",
+      "name": "Leaked FDA Memo",
+      "cost": 4000,
+      "sec_heat_delta": 1.5,
+      "stress_delta": 15.0,
+      "duration_sessions": 1,
+      "description": "Reveals direction of every CRYO jump next session.",
+      "modifier_key": "REVEAL_JUMPS_SECTOR",
+      "modifier_value": "BIOTECH"
+    },
+    {
+      "id": "deal_spoof_book",
+      "name": "Spoof the Order Book",
+      "cost": 2500,
+      "sec_heat_delta": 1.0,
+      "stress_delta": 12.0,
+      "duration_sessions": 1,
+      "description": "Lowers all Resistance Wall distances by 30% next session.",
+      "modifier_key": "WALL_DISTANCE_MULT",
+      "modifier_value": 0.7
+    },
+    {
+      "id": "deal_offshore_wash",
+      "name": "Offshore Shell Wash",
+      "cost": 8000,
+      "sec_heat_delta": 2.0,
+      "stress_delta": 15.0,
+      "duration_sessions": 0,
+      "description": "Zero Capital Gains Tax this Quarter.",
+      "modifier_key": "TAX_RATE_MULT",
+      "modifier_value": 0.0
+    },
+    {
+      "id": "deal_patsy",
+      "name": "Patsy Fall Guy",
+      "cost": 75000,
+      "sec_heat_delta": -2.0,
+      "stress_delta": 0.0,
+      "duration_sessions": 0,
+      "description": "Pay $75k to shed 2 SEC Stars (-15 Prestige).",
+      "modifier_key": "PRESTIGE_DELTA",
+      "modifier_value": -15
+    }
+  ]
+}

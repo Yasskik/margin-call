@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "algos": [
+    {
+      "id": "algo_scalp_bot",
+      "name": "Scalp Bot v1",
+      "rarity": "COMMON",
+      "cost": 3000,
+      "description": "Auto-harvests flat rebates every time price crosses your entry.",
+      "effect": {
+        "op": "ENTRY_CROSS_REBATE",
+        "rebate_pct_of_notional": 0.002
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "tags": [
+        "ALGO",
+        "SCALP"
+      ]
+    },
+    {
+      "id": "algo_trailing_shield",
+      "name": "Trailing Stop Shield",
+      "rarity": "UNCOMMON",
+      "cost": 4500,
+      "description": "Locks in 50% of peak unrealized PnL after a Wall Smash.",
+      "effect": {
+        "op": "TRAILING_LOCK",
+        "lock_ratio": 0.5
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "tags": [
+        "ALGO",
+        "DEFENSE"
+      ]
+    },
+    {
+      "id": "algo_momentum_nitro",
+      "name": "Momentum Nitro",
+      "rarity": "UNCOMMON",
+      "cost": 4000,
+      "description": "[N] boost: doubles Kinetic Momentum gain for 5s (15s cooldown).",
+      "effect": {
+        "op": "MOMENTUM_BOOST",
+        "mult": 2.0,
+        "duration_ticks": 50,
+        "cooldown_ticks": 150
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 2,
+      "tags": [
+        "ALGO",
+        "MOMENTUM"
+      ]
+    },
+    {
+      "id": "algo_pairs_hedge",
+      "name": "Pairs Hedge Engine",
+      "rarity": "RARE",
+      "cost": 6500,
+      "description": "Dampens drawdown by 20% while holding both a Long and a Short.",
+      "effect": {
+        "op": "HEDGE_DAMPEN",
+        "dampen": 0.2
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 2,
+      "tags": [
+        "ALGO",
+        "DEFENSE"
+      ]
+    },
+    {
+      "id": "algo_dark_pool_slicer",
+      "name": "Dark Pool Slicer",
+      "rarity": "UNCOMMON",
+      "cost": 3500,
+      "description": "Cuts SEC Heat gain from Shady Deals by 20%.",
+      "effect": {
+        "op": "HEAT_GAIN_MULT",
+        "mult": 0.8
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "tags": [
+        "ALGO",
+        "INSIDER"
+      ]
+    },
+    {
+      "id": "algo_gamma_scalper",
+      "name": "Gamma Scalper",
+      "rarity": "RARE",
+      "cost": 7000,
+      "description": "Adds +1x virtual leverage every time a Resistance Wall shatters.",
+      "effect": {
+        "op": "VIRTUAL_LEVERAGE_ON_WALL",
+        "add": 1
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 3,
+      "tags": [
+        "ALGO",
+        "MOMENTUM"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "perks": [
+    {
+      "id": "perk_bloomberg_trial",
+      "name": "Bloomberg Trial",
+      "rarity": "COMMON",
+      "archetype": "MOMENTUM",
+      "cost": 2000,
+      "min_prestige": 0,
+      "description": "Starter terminal: +15% Wall Smash bonus.",
+      "trigger_hook": "PASSIVE",
+      "phase": "PASSIVE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "PASSIVE_ONLY"
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 1,
+      "passive_mods": [
+        {
+          "key": "wall_bonus_mult",
+          "value": 1.15
+        }
+      ],
+      "shop_eligible": false,
+      "tags": [
+        "MOMENTUM"
+      ]
+    },
+    {
+      "id": "perk_margin_cowboy",
+      "name": "Margin Cowboy",
+      "rarity": "COMMON",
+      "archetype": "LEVERAGE_DEGEN",
+      "cost": 2500,
+      "min_prestige": 0,
+      "description": "+0.4x Mult on trades opened at 5x leverage or higher.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "ADDITIVE_MULT",
+      "condition": {
+        "type": "LEVERAGE_GTE",
+        "value": 5
+      },
+      "effect": {
+        "op": "ADD_MULT",
+        "amount": 0.4
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 1,
+      "tags": [
+        "LEVERAGE"
+      ]
+    },
+    {
+      "id": "perk_knife_catcher",
+      "name": "Knife Catcher",
+      "rarity": "RARE",
+      "archetype": "LEVERAGE_DEGEN",
+      "cost": 6500,
+      "min_prestige": 0,
+      "description": "x2.0 Mult on trades entered during CRASH that close green.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "COMPOUND_XMULT",
+      "condition": {
+        "type": "ALL",
+        "conditions": [
+          {
+            "type": "ENTRY_REGIME_IS",
+            "value": "CRASH"
+          },
+          {
+            "type": "TRADE_PROFIT_POSITIVE"
+          }
+        ]
+      },
+      "effect": {
+        "op": "XMULT",
+        "amount": 2.0
+      },
+      "accent_color": "#FF3B5C",
+      "foil_tier": 2,
+      "tags": [
+        "LEVERAGE",
+        "CRASH"
+      ]
+    },
+    {
+      "id": "perk_shadow_senator",
+      "name": "Shadow Senator",
+      "rarity": "LEGENDARY",
+      "archetype": "INSIDER_HEAT",
+      "cost": 14000,
+      "min_prestige": 50,
+      "description": "Gains x0.6 Compound Mult per active SEC Star on every winning trade.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "COMPOUND_XMULT",
+      "condition": {
+        "type": "TRADE_PROFIT_POSITIVE"
+      },
+      "effect": {
+        "op": "DYNAMIC_XMULT_BY_STAT",
+        "stat": "sec_heat_stars",
+        "base": 1.0,
+        "per_unit": 0.6
+      },
+      "accent_color": "#FF3B5C",
+      "foil_tier": 3,
+      "requires_feature": "life_sim",
+      "tags": [
+        "INSIDER"
+      ]
+    },
+    {
+      "id": "perk_fiber_optic",
+      "name": "Fiber Optic Cable",
+      "rarity": "UNCOMMON",
+      "archetype": "ALGO_MOMENTUM",
+      "cost": 4000,
+      "min_prestige": 0,
+      "description": "Zero bid-ask slippage on every fill.",
+      "trigger_hook": "PASSIVE",
+      "phase": "PASSIVE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "PASSIVE_ONLY"
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "passive_mods": [
+        {
+          "key": "spread_mult",
+          "value": 0.0
+        }
+      ],
+      "tags": [
+        "ALGO"
+      ]
+    },
+    {
+      "id": "perk_tape_reader",
+      "name": "Tape Reader",
+      "rarity": "UNCOMMON",
+      "archetype": "MOMENTUM",
+      "cost": 4500,
+      "min_prestige": 0,
+      "description": "Permanently gains +0.15x Additive Mult every time you shatter a Resistance Wall.",
+      "trigger_hook": "ON_WALL_SMASH",
+      "phase": "ADDITIVE_MULT",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "SCALING_ADD_MULT",
+        "increment": 0.15,
+        "initial": 0.0
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 1,
+      "tags": [
+        "MOMENTUM",
+        "WALLS",
+        "SCALING"
+      ]
+    },
+    {
+      "id": "perk_stop_loss_guardian",
+      "name": "Stop-Loss Guardian",
+      "rarity": "COMMON",
+      "archetype": "ALGO_MOMENTUM",
+      "cost": 3000,
+      "min_prestige": 0,
+      "description": "Auto-closes your worst position before Margin hits 17% (1 charge per Quarter).",
+      "trigger_hook": "PASSIVE",
+      "phase": "PASSIVE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "PASSIVE_ONLY"
+      },
+      "accent_color": "#00E676",
+      "foil_tier": 1,
+      "passive_mods": [
+        {
+          "key": "stop_loss_threshold",
+          "value": 0.17,
+          "charges_per_quarter": 1
+        }
+      ],
+      "tags": [
+        "DEFENSE"
+      ]
+    }
+  ]
+}
