@@ -11,6 +11,7 @@ var trade: TradePanel
 var gauges: RiskGauges
 var tray: PerkTray
 var paused: bool = false
+var hold: bool = false ## set while a Boss banner / overlay owns the screen
 var speed: float = 1.0
 var _acc: float = 0.0
 var _hitstop: float = 0.0
@@ -124,7 +125,7 @@ func _process(delta: float) -> void:
 	if run == null or run.session == null:
 		return
 	top_bar.update_view(run.get_hud_info(), paused)
-	if paused or run.phase != "TRADING":
+	if paused or hold or run.phase != "TRADING":
 		return
 	if _hitstop > 0.0:
 		_hitstop -= delta
@@ -140,7 +141,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	var k: InputEventKey = event as InputEventKey
-	if k == null or not k.pressed or k.echo or not is_visible_in_tree():
+	if k == null or not k.pressed or k.echo or not is_visible_in_tree() or hold or run.phase != "TRADING":
 		return
 	match k.keycode:
 		KEY_SPACE:

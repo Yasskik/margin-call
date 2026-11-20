@@ -19,6 +19,13 @@ static func requested() -> bool:
 	return false
 
 
+static func scenario_name() -> String:
+	for a: String in OS.get_cmdline_user_args():
+		if a.begins_with("--autopilot="):
+			return a.get_slice("=", 1)
+	return ""
+
+
 func _ready() -> void:
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--autopilot="):

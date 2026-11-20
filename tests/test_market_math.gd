@@ -106,7 +106,10 @@ func test_c_margin_warning_and_liquidation(a: TestAssert) -> void:
 ## (d) Resistance Wall smash detection, tier advancement and WallBonus formula.
 func test_d_wall_smash_and_tiers(a: TestAssert) -> void:
 	var l: DataLoader = TestHelpers.loader()
-	var me: MomentumEngine = MomentumEngine.new(l.sim_config["momentum"])
+	# Doc formula coefficient (Part 2.4); shipping data may tune wall_bonus_base for balance.
+	var mcfg: Dictionary = l.sim_config["momentum"].duplicate()
+	mcfg["wall_bonus_base"] = 0.05
+	var me: MomentumEngine = MomentumEngine.new(mcfg)
 	var p: PositionState = PositionState.new()
 	p.id = "P1"
 	p.ticker = "TST"

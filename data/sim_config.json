@@ -87,12 +87,13 @@
     "window_ticks": 10,
     "full_scale_return": 0.02,
     "smoothing": 0.25,
-    "wall_bonus_base": 0.05,
-    "wall_smash_min_leverage": 2
+    "wall_bonus_base": 0.02,
+    "wall_smash_min_leverage": 2,
+    "_note": "Doc Part 2.4 coefficient is 0.05; tuned to 0.02 for the vertical slice (wall bonuses compound through the pipeline). Revisit in Stage 8."
   },
   "base_mults": {
-    "momentum_add_mult_at_full": 0.5,
-    "wall_add_mult_per_smash": 0.25
+    "momentum_add_mult_at_full": 0.25,
+    "wall_add_mult_per_smash": 0.1
   },
   "economy": {
     "capital_gains_tax_rate": 0.15,

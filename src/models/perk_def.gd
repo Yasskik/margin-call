@@ -25,6 +25,7 @@ var passive_mods: Array[Dictionary] = []
 var accent_color: String = "#D4AF37"
 var foil_tier: int = 1
 var shop_eligible: bool = true
+var requires_feature: String = ""
 var tags: Array[String] = []
 
 
@@ -44,6 +45,7 @@ static func from_dict(d: Dictionary) -> PerkDef:
 	p.accent_color = str(d.get("accent_color", "#D4AF37"))
 	p.foil_tier = int(d.get("foil_tier", 1))
 	p.shop_eligible = bool(d.get("shop_eligible", true))
+	p.requires_feature = str(d.get("requires_feature", ""))
 	var mods: Array = d.get("passive_mods", [])
 	for m: Variant in mods:
 		if m is Dictionary:

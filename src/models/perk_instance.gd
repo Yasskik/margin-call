@@ -5,6 +5,7 @@ extends RefCounted
 var def: PerkDef
 var counter: float = 0.0
 var charges: int = 0
+var paid: int = 0
 
 
 static func create(d: PerkDef) -> PerkInstance:

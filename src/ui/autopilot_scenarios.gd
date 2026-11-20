@@ -23,6 +23,19 @@ static func build(scenario: String) -> Array[Dictionary]:
 			s.append({"at": 14.0, "do": "close_all"})
 			s.append({"at": 14.75, "do": "snap", "name": "combo"})
 			s.append({"at": 15.5, "do": "quit"})
+		"shop":
+			s.append({"at": 0.3, "do": "drive", "snaps": {"SHOP": "shop"}, "quit_on": "AFTER_HOURS", "tpf": 12})
+		"flow":
+			s.append({"at": 0.1, "do": "targets", "scale": 0.0})
+			s.append({"at": 0.3, "do": "drive", "snaps": {"SETTLEMENT": "settlement", "BOSS": "boss", "AUDIT": "audit", "END": "end"}, "quit_on": "END", "tpf": 90})
+		"slice":
+			s.append({"at": 0.3, "do": "drive", "snaps": {"SETTLEMENT": "settlement", "BOSS": "boss", "AUDIT": "audit"}, "quit_on": "AUDIT", "tpf": 6})
+		"bust":
+			s.append({"at": 0.1, "do": "targets", "scale": 1000.0})
+			s.append({"at": 0.3, "do": "drive", "snaps": {"END": "end"}, "quit_on": "END", "tpf": 30})
+		"menu":
+			s.append({"at": 2.0, "do": "snap", "name": "menu"})
+			s.append({"at": 2.5, "do": "quit"})
 		_:
 			s.append({"at": 3.0, "do": "snap", "name": "boot"})
 			s.append({"at": 3.5, "do": "quit"})
@@ -52,6 +65,17 @@ static func run_step(ap: DevAutopilot, step: Dictionary) -> void:
 			term.tray.show_perks(term.run.session.loadout.perk_defs(), term.run.session.loadout.perk_slots)
 		"dump":
 			_dump(term, 0)
+		"targets":
+			for b: Dictionary in term.run.data.bosses:
+				b["target_equity"] = float(b["target_equity"]) * float(step["scale"])
+		"drive":
+			var d: AutopilotDriver = AutopilotDriver.new()
+			d.shell = shell
+			d.ap = ap
+			d.snaps = step["snaps"]
+			d.quit_on = str(step["quit_on"])
+			d.ticks_per_frame = int(step["tpf"])
+			ap.add_child(d)
 		"quit":
 			ap.get_tree().quit(0)
 		_:

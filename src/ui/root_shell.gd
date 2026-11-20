@@ -7,7 +7,11 @@ const CRT_SHADER: Shader = preload("res://src/shaders/crt_bloom_overlay.gdshader
 
 var run: RunController
 var bridge: EventBridge
-var terminal: MainTerminal
+var terminal: MainTerminal:
+	get:
+		return router.terminal if router != null else null
+var router: ScreenRouter
+var overlay_layer: Control
 var screen_host: Control
 var bg_mat: ShaderMaterial
 var crt_mat: ShaderMaterial
@@ -17,6 +21,7 @@ var _shake_time: float = 0.0
 var _shake_strength: float = 0.0
 var _glitch: float = 0.0
 var _warning: bool = false
+var _seed_override: int = -1
 
 
 func _ready() -> void:
@@ -30,11 +35,18 @@ func _ready() -> void:
 		_warning = on
 		if on:
 			_glitch = 1.0)
-	var seed_value: int = int(Time.get_unix_time_from_system()) % 1000000
+	router = ScreenRouter.new()
+	add_child(router)
+	router.setup(screen_host, overlay_layer, sequencer)
+	router.new_run_requested.connect(func() -> void: start_new_run(_next_seed()))
+	_seed_override = -1
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--seed="):
-			seed_value = int(a.get_slice("=", 1))
-	start_new_run(seed_value)
+			_seed_override = int(a.get_slice("=", 1))
+	if DevAutopilot.requested() and DevAutopilot.scenario_name() != "menu":
+		start_new_run(_next_seed())
+	else:
+		router.show_menu()
 	if DevAutopilot.requested():
 		var ap: DevAutopilot = DevAutopilot.new()
 		ap.shell = self
@@ -52,6 +64,10 @@ func _build_layers() -> void:
 	screen_host = Control.new()
 	screen_host.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(screen_host)
+	overlay_layer = Control.new()
+	overlay_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	overlay_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(overlay_layer)
 	sequencer = ComboSequencer.new()
 	add_child(sequencer)
 	var crt: ColorRect = ColorRect.new()
@@ -68,19 +84,22 @@ func _build_layers() -> void:
 	FloatingPopup.layer = popup_layer
 
 
+func _next_seed() -> int:
+	if _seed_override >= 0:
+		var v: int = _seed_override
+		_seed_override += 1
+		return v
+	return int(Time.get_unix_time_from_system()) % 1000000
+
+
 func start_new_run(seed_value: int) -> void:
 	bridge.unbind_all()
+	_warning = false
 	run = RunController.new(DataRegistry.loader, seed_value)
 	bridge.bind_run(run)
+	router.attach_run(run)
 	run.start_run()
 	bridge.bind_session(run.session)
-	if terminal == null:
-		terminal = MainTerminal.new()
-		screen_host.add_child(terminal)
-		terminal.build(run)
-	terminal.bind_session(run.session)
-	terminal.tray.show_perks(run.session.loadout.perk_defs(), run.session.loadout.perk_slots)
-	sequencer.tray = terminal.tray
 
 
 func _on_shake(intensity: float, duration: float) -> void:

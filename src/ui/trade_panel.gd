@@ -113,6 +113,15 @@ func set_allocation(a: float) -> void:
 	_refresh_pills()
 
 
+## New session: boss caps / 10x unlocks may change the allowed leverage set.
+func on_session_started() -> void:
+	var allowed: Array = run.session.portfolio.allowed_leverages()
+	if not allowed.has(leverage):
+		leverage = int(allowed.max()) if leverage > int(allowed.max()) else int(allowed[0])
+	_refresh_pills()
+	_rebuild_book()
+
+
 func _refresh_pills() -> void:
 	for l: int in _lev_buttons.keys():
 		var b: Button = _lev_buttons[l]
