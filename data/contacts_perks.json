@@ -55,6 +55,33 @@
       ]
     },
     {
+      "id": "perk_adrenaline_desk",
+      "name": "Adrenaline Desk",
+      "rarity": "UNCOMMON",
+      "archetype": "LEVERAGE_DEGEN",
+      "cost": 4000,
+      "min_prestige": 0,
+      "description": "+$1,200 Flat Alpha per 10 Stress on winning trades.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "FLAT_ALPHA",
+      "condition": {
+        "type": "TRADE_PROFIT_POSITIVE"
+      },
+      "effect": {
+        "op": "DYNAMIC_FLAT_BY_STAT",
+        "stat": "stress",
+        "per_unit": 1200,
+        "unit_size": 10
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "requires_feature": "life_sim",
+      "tags": [
+        "LEVERAGE",
+        "STRESS"
+      ]
+    },
+    {
       "id": "perk_knife_catcher",
       "name": "Knife Catcher",
       "rarity": "RARE",
@@ -85,6 +112,262 @@
       "tags": [
         "LEVERAGE",
         "CRASH"
+      ]
+    },
+    {
+      "id": "perk_liquidation_flirt",
+      "name": "Liquidation Flirt",
+      "rarity": "RARE",
+      "archetype": "LEVERAGE_DEGEN",
+      "cost": 7000,
+      "min_prestige": 0,
+      "description": "x3.0 final session profit if your Margin dipped below 22% and you survived.",
+      "trigger_hook": "ON_SESSION_END",
+      "phase": "COMPOUND_XMULT",
+      "condition": {
+        "type": "ALL",
+        "conditions": [
+          {
+            "type": "MIN_MARGIN_BELOW",
+            "value": 0.22
+          },
+          {
+            "type": "SESSION_PROFIT_POSITIVE"
+          }
+        ]
+      },
+      "effect": {
+        "op": "XMULT",
+        "amount": 3.0
+      },
+      "accent_color": "#FF3B5C",
+      "foil_tier": 2,
+      "tags": [
+        "LEVERAGE",
+        "RISK"
+      ]
+    },
+    {
+      "id": "perk_bear_raid",
+      "name": "Bear Raid Syndicate",
+      "rarity": "COMMON",
+      "archetype": "SHORT_BEAR",
+      "cost": 2500,
+      "min_prestige": 0,
+      "description": "Shorts build Kinetic Momentum 40% faster.",
+      "trigger_hook": "PASSIVE",
+      "phase": "PASSIVE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "PASSIVE_ONLY"
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 1,
+      "passive_mods": [
+        {
+          "key": "momentum_gain_short",
+          "value": 1.4
+        }
+      ],
+      "tags": [
+        "SHORT",
+        "MOMENTUM"
+      ]
+    },
+    {
+      "id": "perk_forensic_accountant",
+      "name": "Forensic Accountant",
+      "rarity": "UNCOMMON",
+      "archetype": "SHORT_BEAR",
+      "cost": 4500,
+      "min_prestige": 0,
+      "description": "-50% Short Borrow on Biotech/Meme and +0.6x Mult on Shorts.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "ADDITIVE_MULT",
+      "condition": {
+        "type": "SIDE_IS",
+        "value": "SHORT"
+      },
+      "effect": {
+        "op": "ADD_MULT",
+        "amount": 0.6
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 1,
+      "passive_mods": [
+        {
+          "key": "borrow_mult",
+          "value": 0.5,
+          "sectors": [
+            "BIOTECH",
+            "MEME"
+          ]
+        }
+      ],
+      "tags": [
+        "SHORT"
+      ]
+    },
+    {
+      "id": "perk_doomsday_prophet",
+      "name": "Doomsday Prophet",
+      "rarity": "UNCOMMON",
+      "archetype": "SHORT_BEAR",
+      "cost": 4000,
+      "min_prestige": 0,
+      "description": "+$800 Flat Alpha per red candle printed during CRASH on a ticker you hold.",
+      "trigger_hook": "ON_SESSION_END",
+      "phase": "FLAT_ALPHA",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "DYNAMIC_FLAT_BY_STAT",
+        "stat": "session_crash_red_candles",
+        "per_unit": 800,
+        "unit_size": 1
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "tags": [
+        "SHORT",
+        "CRASH"
+      ]
+    },
+    {
+      "id": "perk_big_short",
+      "name": "The Big Short",
+      "rarity": "RARE",
+      "archetype": "SHORT_BEAR",
+      "cost": 8000,
+      "min_prestige": 0,
+      "description": "x2.5 Mult on winning Shorts once you break 3+ Support Floors in one session.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "COMPOUND_XMULT",
+      "condition": {
+        "type": "ALL",
+        "conditions": [
+          {
+            "type": "SIDE_IS",
+            "value": "SHORT"
+          },
+          {
+            "type": "SESSION_FLOORS_GTE",
+            "value": 3
+          },
+          {
+            "type": "TRADE_PROFIT_POSITIVE"
+          }
+        ]
+      },
+      "effect": {
+        "op": "XMULT",
+        "amount": 2.5
+      },
+      "accent_color": "#FF3B5C",
+      "foil_tier": 3,
+      "tags": [
+        "SHORT",
+        "WALLS"
+      ]
+    },
+    {
+      "id": "perk_burner_phone",
+      "name": "Burner Phone",
+      "rarity": "UNCOMMON",
+      "archetype": "INSIDER_HEAT",
+      "cost": 4000,
+      "min_prestige": 0,
+      "description": "+$2,000 Flat Alpha per active SEC Star on winning trades.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "FLAT_ALPHA",
+      "condition": {
+        "type": "TRADE_PROFIT_POSITIVE"
+      },
+      "effect": {
+        "op": "DYNAMIC_FLAT_BY_STAT",
+        "stat": "sec_heat_stars",
+        "per_unit": 2000,
+        "unit_size": 1
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "requires_feature": "life_sim",
+      "tags": [
+        "INSIDER"
+      ]
+    },
+    {
+      "id": "perk_cayman_courier",
+      "name": "Cayman Courier",
+      "rarity": "RARE",
+      "archetype": "INSIDER_HEAT",
+      "cost": 6000,
+      "min_prestige": 0,
+      "description": "-25% Quarterly Tax per SEC Star (max 75%).",
+      "trigger_hook": "PASSIVE",
+      "phase": "PASSIVE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "PASSIVE_ONLY"
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 2,
+      "passive_mods": [
+        {
+          "key": "tax_cut_per_star",
+          "value": 0.25,
+          "max": 0.75
+        }
+      ],
+      "requires_feature": "life_sim",
+      "tags": [
+        "INSIDER",
+        "TAX"
+      ]
+    },
+    {
+      "id": "perk_lobbyist_dinner",
+      "name": "Lobbyist Dinner",
+      "rarity": "RARE",
+      "archetype": "INSIDER_HEAT",
+      "cost": 7500,
+      "min_prestige": 25,
+      "description": "x1.5 Mult on winning trades while Prestige >= 40. Paying Burn Rate cools 0.5 SEC Stars.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "COMPOUND_XMULT",
+      "condition": {
+        "type": "ALL",
+        "conditions": [
+          {
+            "type": "STAT_GTE",
+            "stat": "prestige",
+            "value": 40
+          },
+          {
+            "type": "TRADE_PROFIT_POSITIVE"
+          }
+        ]
+      },
+      "effect": {
+        "op": "XMULT",
+        "amount": 1.5
+      },
+      "accent_color": "#FF3B5C",
+      "foil_tier": 2,
+      "passive_mods": [
+        {
+          "key": "burn_payment_heat_cool",
+          "value": 0.5
+        }
+      ],
+      "tags": [
+        "INSIDER",
+        "PRESTIGE"
       ]
     },
     {
@@ -165,6 +448,85 @@
         "MOMENTUM",
         "WALLS",
         "SCALING"
+      ]
+    },
+    {
+      "id": "perk_quant_phd",
+      "name": "Quant PhD",
+      "rarity": "RARE",
+      "archetype": "ALGO_MOMENTUM",
+      "cost": 6000,
+      "min_prestige": 0,
+      "description": "+0.35x Mult per distinct equipped Algo.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "ADDITIVE_MULT",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "DYNAMIC_ADD_MULT_BY_STAT",
+        "stat": "distinct_algos",
+        "per_unit": 0.35
+      },
+      "accent_color": "#D4AF37",
+      "foil_tier": 2,
+      "requires_feature": "algos_live",
+      "tags": [
+        "ALGO"
+      ]
+    },
+    {
+      "id": "perk_hft_arbitrage",
+      "name": "High-Frequency Arbitrage",
+      "rarity": "UNCOMMON",
+      "archetype": "ALGO_MOMENTUM",
+      "cost": 4500,
+      "min_prestige": 0,
+      "description": "+$300 Flat Alpha for every 5 ticks a winning trade was held in profit.",
+      "trigger_hook": "ON_TRADE_CLOSE",
+      "phase": "FLAT_ALPHA",
+      "condition": {
+        "type": "TRADE_PROFIT_POSITIVE"
+      },
+      "effect": {
+        "op": "DYNAMIC_FLAT_BY_STAT",
+        "stat": "trade_ticks_in_profit",
+        "per_unit": 300,
+        "unit_size": 5
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 1,
+      "tags": [
+        "ALGO",
+        "HOLD"
+      ]
+    },
+    {
+      "id": "perk_fed_whisperer",
+      "name": "Fed Whisperer",
+      "rarity": "RARE",
+      "archetype": "ALGO_MOMENTUM",
+      "cost": 6000,
+      "min_prestige": 0,
+      "description": "Jump Warnings reveal direction and arrive 3 s early instead of 1.5 s.",
+      "trigger_hook": "PASSIVE",
+      "phase": "PASSIVE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effect": {
+        "op": "PASSIVE_ONLY"
+      },
+      "accent_color": "#38BDF8",
+      "foil_tier": 2,
+      "passive_mods": [
+        {
+          "key": "fed_whisperer",
+          "value": 1
+        }
+      ],
+      "tags": [
+        "SIGNALS"
       ]
     },
     {

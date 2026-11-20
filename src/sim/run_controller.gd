@@ -8,7 +8,7 @@ signal session_started(quarter: int, session_idx: int, boss_id: String)
 
 var data: DataLoader
 var rng: RNGService
-var session: SessionRunner
+var session: RunSession
 var phase: String = "MENU"
 var quarter: int = 1
 var session_idx: int = 1
@@ -22,11 +22,17 @@ func _init(loader: DataLoader, p_seed: int) -> void:
 
 
 func start_run() -> void:
-	session = SessionRunner.new(data.sim_config, data.stocks, rng.fork(1), 10000.0)
+	var bg: Dictionary = data.get_background("bg_junior_analyst")
+	session = RunSession.new(data.sim_config, data.stocks, rng.fork(1), float(bg.get("starting_cash", 10000.0)))
+	session.loadout.perk_slots = int(bg.get("perk_slots", 5))
+	session.loadout.algo_slots = int(bg.get("algo_slots", 4))
+	for pid: Variant in bg.get("starting_perks", []):
+		session.loadout.add_perk(data.get_perk(str(pid)))
 	start_session()
 
 
 func start_session() -> void:
+	session.apply_loadout()
 	session.begin()
 	_set_phase("TRADING")
 	session_started.emit(quarter, session_idx, "")

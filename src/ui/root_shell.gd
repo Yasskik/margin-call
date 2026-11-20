@@ -12,6 +12,7 @@ var screen_host: Control
 var bg_mat: ShaderMaterial
 var crt_mat: ShaderMaterial
 var popup_layer: Control
+var sequencer: ComboSequencer
 var _shake_time: float = 0.0
 var _shake_strength: float = 0.0
 var _glitch: float = 0.0
@@ -29,7 +30,11 @@ func _ready() -> void:
 		_warning = on
 		if on:
 			_glitch = 1.0)
-	start_new_run(int(Time.get_unix_time_from_system()) % 1000000)
+	var seed_value: int = int(Time.get_unix_time_from_system()) % 1000000
+	for a: String in OS.get_cmdline_user_args():
+		if a.begins_with("--seed="):
+			seed_value = int(a.get_slice("=", 1))
+	start_new_run(seed_value)
 	if DevAutopilot.requested():
 		var ap: DevAutopilot = DevAutopilot.new()
 		ap.shell = self
@@ -47,6 +52,8 @@ func _build_layers() -> void:
 	screen_host = Control.new()
 	screen_host.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(screen_host)
+	sequencer = ComboSequencer.new()
+	add_child(sequencer)
 	var crt: ColorRect = ColorRect.new()
 	crt.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	crt.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -72,7 +79,8 @@ func start_new_run(seed_value: int) -> void:
 		screen_host.add_child(terminal)
 		terminal.build(run)
 	terminal.bind_session(run.session)
-	terminal.tray.show_perks([DataRegistry.loader.get_perk("perk_bloomberg_trial")] as Array[PerkDef], 5)
+	terminal.tray.show_perks(run.session.loadout.perk_defs(), run.session.loadout.perk_slots)
+	sequencer.tray = terminal.tray
 
 
 func _on_shake(intensity: float, duration: float) -> void:

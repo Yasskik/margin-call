@@ -14,6 +14,15 @@ static func build(scenario: String) -> Array[Dictionary]:
 			s.append({"at": 8.8, "do": "dump"})
 			s.append({"at": 9.0, "do": "snap", "name": "terminal"})
 			s.append({"at": 9.5, "do": "quit"})
+		"combo":
+			s.append({"at": 0.5, "do": "grant", "perks": ["perk_margin_cowboy", "perk_tape_reader", "perk_hft_arbitrage", "perk_knife_catcher"]})
+			s.append({"at": 0.8, "do": "select", "ticker": "VLTG"})
+			s.append({"at": 1.0, "do": "open", "side": "LONG", "lev": 5, "alloc": 0.5})
+			s.append({"at": 1.2, "do": "select", "ticker": "OMNI"})
+			s.append({"at": 1.4, "do": "open", "side": "LONG", "lev": 5, "alloc": 0.25})
+			s.append({"at": 14.0, "do": "close_all"})
+			s.append({"at": 14.75, "do": "snap", "name": "combo"})
+			s.append({"at": 15.5, "do": "quit"})
 		_:
 			s.append({"at": 3.0, "do": "snap", "name": "boot"})
 			s.append({"at": 3.5, "do": "quit"})
@@ -36,6 +45,11 @@ static func run_step(ap: DevAutopilot, step: Dictionary) -> void:
 				term.run.close_position(p.id)
 		"snap":
 			ap.snap(str(step["name"]))
+		"grant":
+			for pid: Variant in step["perks"]:
+				term.run.session.loadout.add_perk(DataRegistry.loader.get_perk(str(pid)))
+			term.run.session.apply_loadout()
+			term.tray.show_perks(term.run.session.loadout.perk_defs(), term.run.session.loadout.perk_slots)
 		"dump":
 			_dump(term, 0)
 		"quit":
