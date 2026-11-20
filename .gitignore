@@ -3,3 +3,4 @@ builds/
 /android/
 *.tmp
 .DS_Store
+docs/MARGIN_CALL_MASTER_BLUEPRINT.md
