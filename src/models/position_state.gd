@@ -30,6 +30,11 @@ func direction() -> float:
 	return 1.0 if side == "LONG" else -1.0
 
 
+## Base Alpha so far: unrealized PnL plus banked Wall Smash bonuses.
+func base_alpha() -> float:
+	return unrealized_pnl + wall_bonus
+
+
 func to_dict() -> Dictionary:
 	return {
 		"id": id, "ticker": ticker, "side": side, "leverage": leverage,

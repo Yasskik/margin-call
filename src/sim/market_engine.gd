@@ -22,7 +22,7 @@ var tick_idx: int = 0
 var regime: String = "CALM"
 var prices: Dictionary = {}       # ticker -> mid price
 var session_open: Dictionary = {} # ticker -> mid at session start
-var history: Dictionary = {}      # ticker -> PackedFloat64Array of mids this session (index 0 = open)
+var history: Dictionary = {}      # ticker -> Array[float] of mids this session (index 0 = open)
 var candles: Dictionary = {}      # ticker -> Array[Dictionary] {o,h,l,c,regime}
 var _building: Dictionary = {}    # ticker -> Dictionary candle in progress
 var jumps: JumpScheduler
@@ -68,8 +68,7 @@ func start_session(start_regime: String = "") -> void:
 		var p: float = float(prices[s.ticker])
 		session_open[s.ticker] = p
 		_circuit_ref[s.ticker] = p
-		var h: PackedFloat64Array = PackedFloat64Array()
-		h.append(p)
+		var h: Array[float] = [p]
 		history[s.ticker] = h
 		_building[s.ticker] = {}
 
@@ -116,7 +115,7 @@ func _step_stock(s: StockDef) -> void:
 		p = maxf(p, 0.01)
 		_check_circuit(t, p)
 	prices[t] = p
-	(history[t] as PackedFloat64Array).append(p)
+	(history[t] as Array).append(p)
 	_update_candle(t, p)
 	var q: Dictionary = get_quote(t)
 	tick_updated.emit(t, p, float(q["bid"]), float(q["ask"]), regime, tick_idx)

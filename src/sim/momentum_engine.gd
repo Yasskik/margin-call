@@ -60,12 +60,12 @@ func has_ladder(pos_id: String) -> bool:
 
 
 ## Aligned trailing return for one position from the session mid history.
-func aligned_return(p: PositionState, hist: PackedFloat64Array) -> float:
+func aligned_return(p: PositionState, hist: Array) -> float:
 	if hist.size() < 2:
 		return 0.0
 	var last: int = hist.size() - 1
 	var back: int = maxi(0, last - window_ticks)
-	return p.direction() * (hist[last] / hist[back] - 1.0)
+	return p.direction() * (float(hist[last]) / float(hist[back]) - 1.0)
 
 
 ## Updates K_t from all open positions (notional-weighted) and returns wall-smash events.
@@ -74,14 +74,14 @@ func update(positions: Array[PositionState], histories: Dictionary) -> Array[Dic
 	var weighted: float = 0.0
 	var total_n: float = 0.0
 	for p: PositionState in positions:
-		var hist: PackedFloat64Array = histories.get(p.ticker, PackedFloat64Array())
+		var hist: Array = histories.get(p.ticker, [])
 		var r: float = aligned_return(p, hist)
 		if not p.is_long():
 			r *= short_gain_mult
 		weighted += r * p.notional
 		total_n += p.notional
 		if hist.size() > 0:
-			events.append_array(check_walls(p, hist[hist.size() - 1]))
+			events.append_array(check_walls(p, float(hist[hist.size() - 1])))
 	var target: float = 0.0
 	if total_n > 0.0:
 		target = clampf(100.0 * (weighted / total_n) * gain_mult / full_scale_return, 0.0, 100.0)

@@ -162,3 +162,25 @@ func test_h_transition_rows_sum_to_one(a: TestAssert) -> void:
 	a.ok(not probe.validate_sim_config(bad), "validator rejects a row that sums to 0.65")
 	a.eq(l.stocks.size(), 8, "8 launch tickers")
 	a.eq(l.bosses.size(), 12, "12 quarterly bosses")
+
+
+## SessionRunner integration: history grows per tick, momentum builds, walls smash on real paths.
+func test_session_runner_integration(a: TestAssert) -> void:
+	var l: DataLoader = TestHelpers.loader()
+	var smashed: int = 0
+	var total_k: float = 0.0
+	for seed_value: int in range(1, 13):
+		var sr: SessionRunner = SessionRunner.new(l.sim_config, l.stocks, RNGService.new(seed_value), 10000.0)
+		sr.market.lock_regime = "BULL_MANIA"
+		sr.begin()
+		var r: Dictionary = sr.open_position("VLTG", "LONG", 3, 0.5)
+		a.ok(bool(r["ok"]), "open VLTG 3x")
+		while sr.active:
+			sr.step()
+			total_k += sr.momentum.momentum
+		a.eq((sr.market.history["OMNI"] as Array).size(), 451, "history holds open + 450 ticks")
+		smashed += sr.momentum.session_walls_broken
+		a.eq(sr.portfolio.positions.size(), 0, "session end flattens the book")
+		a.near(sr.portfolio.equity(), sr.portfolio.cash, 1e-9, "flat book: equity == cash")
+	a.ok(smashed > 0, "Resistance Walls smash on live BULL paths (%d)" % smashed)
+	a.ok(total_k > 0.0, "Kinetic Momentum builds on live paths")
