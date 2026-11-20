@@ -121,11 +121,11 @@ func format_currency(value: float, decimals: int = 0, show_sign: bool = false) -
 ## Compact money for big headline numbers: $1.25M, $18.0M, $950K.
 func format_compact(value: float) -> String:
 	var a: float = absf(value)
-	var sign: String = "-" if value < 0.0 else ""
+	var neg_prefix: String = "-" if value < 0.0 else ""
 	if a >= 1000000.0:
-		return "%s$%.2fM" % [sign, a / 1000000.0]
+		return "%s$%.2fM" % [neg_prefix, a / 1000000.0]
 	if a >= 100000.0:
-		return "%s$%.0fK" % [sign, a / 1000.0]
+		return "%s$%.0fK" % [neg_prefix, a / 1000.0]
 	return format_currency(value)
 
 
